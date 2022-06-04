@@ -1,9 +1,10 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import Layout from "./src/components/Layout";
-import theme from "@res/theme";
+import addIcons from "@res/icons";
 
 export default function App() {
+  addIcons();
+
   return (
     <Layout>
       <View>
