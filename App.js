@@ -1,6 +1,7 @@
 import { Text, View } from "react-native";
 import Layout from "./src/components/Layout";
 import addIcons from "@res/icons";
+import ChatContext from "@services/ChatContext";
 
 export default function App() {
   // adds icons to the library
