@@ -3,6 +3,7 @@ import Layout from "./src/components/Layout";
 import addIcons from "@res/icons";
 
 export default function App() {
+  // adds icons to the library
   addIcons();
 
   return (
