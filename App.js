@@ -6,7 +6,7 @@ import theme from "@res/theme";
 export default function App() {
   return (
     <Layout>
-      <View style={{ backgroundColor: theme.background }}>
+      <View>
         <Text>Open up App.js to start working on your app!</Text>
       </View>
     </Layout>
