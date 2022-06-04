@@ -9,7 +9,7 @@ import Settings from "@screens/Main/Settings/";
 
 const Stack = createNativeStackNavigator();
 
-const FriendsStack = () => {
+const ChatsStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen options={mainScreenStyle} name="Chats" component={Chats} />
@@ -19,4 +19,4 @@ const FriendsStack = () => {
   );
 };
 
-export default FriendsStack;
+export default ChatsStack;

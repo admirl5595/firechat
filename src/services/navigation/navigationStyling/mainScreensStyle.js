@@ -5,6 +5,10 @@ const mainScreenStyle = ({ navigation }) => ({
   headerStyle: {
     backgroundColor: "#fff",
   },
+  headerTitleStyle: {
+    fontWeight: "900",
+    fontSize: 25,
+  },
   headerTintColor: "000",
   headerRight: () => (
     <TouchableOpacity onPress={() => navigation.navigate("Settings")}>

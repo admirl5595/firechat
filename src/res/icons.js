@@ -9,8 +9,19 @@ import {
   faComments,
   faUserGroup,
   faGear,
+  faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function addIcons() {
-  library.add(faM, faW, faS, faT, faF, faComments, faUserGroup, faGear);
+  library.add(
+    faM,
+    faW,
+    faS,
+    faT,
+    faF,
+    faComments,
+    faUserGroup,
+    faGear,
+    faMagnifyingGlass
+  );
 }
