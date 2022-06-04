@@ -1,5 +1,6 @@
 import React from "react";
 
+import { auth } from "@firebase-config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";

@@ -7,7 +7,7 @@ export default function App() {
   addIcons();
 
   return (
-    <ChatContext.Provider>
+    <ChatContext.Provider value={null}>
       <RootNavigator />
     </ChatContext.Provider>
   );
