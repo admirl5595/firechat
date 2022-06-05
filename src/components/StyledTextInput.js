@@ -1,10 +1,19 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import React from "react";
+import theme from "@res/theme";
 
-export default function StyledTextInput({ onChangeText, value, placeholder }) {
+export default function StyledTextInput({
+  error,
+  onChangeText,
+  value,
+  placeholder,
+}) {
   return (
     <TextInput
-      style={styles.container}
+      style={{
+        ...styles.container,
+        borderColor: error ? theme.colors.failure : "rgba(0,0,0,.3)",
+      }}
       onChangeText={onChangeText}
       value={value}
       placeholder={placeholder ? placeholder : ""}
@@ -19,6 +28,5 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "white",
     borderWidth: 1,
-    borderColor: "rgba(0,0,0,.3)",
   },
 });
