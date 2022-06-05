@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 const colorPalette = {
   primary: "#31AFD4",
+  secondary: "#1F487E",
   background: "#fff",
   success: "green",
   failure: "red",
@@ -11,7 +12,7 @@ const theme = {
   colors: colorPalette,
   textVariants: {
     header: {
-      fontSize: 32,
+      fontSize: 42,
       fontWeight: "900",
     },
     headerSmall: {

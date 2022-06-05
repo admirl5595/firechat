@@ -1,5 +1,20 @@
 import { StyleSheet } from "react-native";
+import theme from "@res/theme";
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    width: "80%",
+    alignSelf: "center",
+    marginTop: "15%",
+  },
+  btnsContainer: {
+    alignItems: "center",
+    marginTop: 25,
+  },
+  text: {
+    ...theme.textVariants.body,
+    marginVertical: 10,
+  },
+});
 
 export default styles;

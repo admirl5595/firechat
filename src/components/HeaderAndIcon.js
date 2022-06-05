@@ -9,7 +9,7 @@ export default function HeaderAndIcon({ title, icon, iconColor }) {
       <FontAwesomeIcon
         style={styles.icon}
         icon={icon}
-        size={60}
+        size={80}
         color={iconColor ? iconColor : "#fff"}
       />
       <Text style={styles.text}>{title}</Text>
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: "25%",
   },
   text: {
     textAlign: "center",

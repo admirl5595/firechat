@@ -7,7 +7,7 @@ export default function StyledTextInput({ onChangeText, value, placeholder }) {
       style={styles.container}
       onChangeText={onChangeText}
       value={value}
-      placeholder={placeholder}
+      placeholder={placeholder ? placeholder : ""}
     />
   );
 }
@@ -20,6 +20,5 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderWidth: 1,
     borderColor: "rgba(0,0,0,.3)",
-    flex: 1,
   },
 });

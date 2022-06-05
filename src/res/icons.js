@@ -10,6 +10,8 @@ import {
   faUserGroup,
   faGear,
   faMagnifyingGlass,
+  faImages,
+  faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function addIcons() {
@@ -22,6 +24,8 @@ export default function addIcons() {
     faComments,
     faUserGroup,
     faGear,
-    faMagnifyingGlass
+    faMagnifyingGlass,
+    faImages,
+    faPaperPlane
   );
 }
