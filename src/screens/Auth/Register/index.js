@@ -6,8 +6,9 @@ import HeaderAndIcon from "@components/HeaderAndIcon";
 import { View, Text } from "react-native";
 import styles from "./style";
 import ErrorMessage from "@components/ErrorMessage";
-import { auth } from "@firebase-config";
+import { db, auth } from "@firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 
 import {
   verifyFName,
@@ -50,20 +51,37 @@ export default function Register({ navigation }) {
       return;
     }
 
-    createUserWithEmailAndPassword(auth, email, password).catch((error) => {
-      console.log(error.code);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(async () => {
+        // add user document to firebase
+        const userDoc = {
+          fName: fName,
+          lName: lName,
+          email: email,
+          friends: [],
+          chats: [],
+          incomingFR: [],
+          outgoingFR: [],
+        };
 
-      if (
-        error.code.includes("missing-email") ||
-        error.code.includes("invalid-email")
-      ) {
-        setError({ errorType: "email", errorMsg: "invalid email" });
-      }
+        const docRef = await addDoc(collection(db, "users"), userDoc);
 
-      if (error.code.includes("weak-password")) {
-        setError({ errorType: "password", errorMsg: "weak password" });
-      }
-    });
+        console.log(docRef.id);
+      })
+      .catch((error) => {
+        console.log(error.code);
+
+        if (
+          error.code.includes("missing-email") ||
+          error.code.includes("invalid-email")
+        ) {
+          setError({ errorType: "email", errorMsg: "invalid email" });
+        }
+
+        if (error.code.includes("weak-password")) {
+          setError({ errorType: "password", errorMsg: "weak password" });
+        }
+      });
   };
 
   return (

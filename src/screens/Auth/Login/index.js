@@ -17,12 +17,28 @@ export default function Login({ navigation }) {
 
   const login = () => {
     console.log("logging in...");
+
+    if (email.length === 0) {
+      setError({ errorType: "email", errorMsg: "enter email" });
+      return;
+    }
+
+    if (password.length === 0) {
+      setError({ errorType: "password", errorMsg: "enter password" });
+      return;
+    }
+
+    setError({ errorType: "", errorMsg: "" });
+
     signInWithEmailAndPassword(auth, email, password).catch((error) => {
+      console.log(error.message);
+
       if (
         error.code.includes("email") ||
         error.code.includes("user-not-found")
       ) {
         setError({ errorType: "email", errorMsg: "invalid email" });
+        return;
       }
 
       if (
@@ -30,6 +46,7 @@ export default function Login({ navigation }) {
         error.code.includes("internal-error")
       ) {
         setError({ errorType: "password", errorMsg: "invalid password" });
+        return;
       }
       console.log(error.message);
     });
