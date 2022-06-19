@@ -2,7 +2,10 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Thumbnail from "@components/Thumbnail";
 
-export default function IncomingMessage({ message, author, date }) {
+export default function IncomingMessage({ message }) {
+  const date = message.date;
+  const author = message.author;
+
   const yyyy = date.getFullYear();
   const dd = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
   const mm =
@@ -14,7 +17,7 @@ export default function IncomingMessage({ message, author, date }) {
     <View style={styles.container}>
       <View style={styles.messageContainer}>
         <Text>{author}</Text>
-        <Text style={styles.text}>{message}</Text>
+        <Text style={styles.text}>{message.body}</Text>
         <Text style={styles.dateText}>{dateString}</Text>
       </View>
       <Thumbnail />

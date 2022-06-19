@@ -1,9 +1,13 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import theme from "@res/theme";
 
-export default function Card({ children }) {
-  return <View style={styles.container}>{children}</View>;
+export default function Card({ children, onPress }) {
+  return (
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>{children}</View>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({

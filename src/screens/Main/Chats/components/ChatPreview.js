@@ -1,11 +1,14 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import Card from "@components/Card";
 import Thumbnail from "@components/Thumbnail";
 import theme from "@res/theme";
+import { auth } from "@firebase-config";
 
 // message: last message in the chat
-export default function ChatPreview({ message }) {
+export default function ChatPreview({ message, chat, onPress }) {
+  console.log(message);
+
   const hour =
     message.date.getHours() < 10
       ? "0" + message.date.getHours()
@@ -20,22 +23,31 @@ export default function ChatPreview({ message }) {
 
   let bodyPreview = message.body;
 
-  if (bodyPreview.length > 20) {
-    bodyPreview = bodyPreview.slice(0, 20) + "...";
+  if (bodyPreview.length > 10) {
+    bodyPreview = bodyPreview.slice(0, 10) + "...";
+  }
+
+  const userId = auth.currentUser.uid;
+
+  let seen = true;
+
+  if (userId !== message.authorId && !message.seen) {
+    seen = false;
   }
 
   return (
-    <Card>
+    // TODO: fix weird shadow when tapping View with elevation
+    <Card onPress={onPress}>
       <View style={styles.container}>
         <Thumbnail />
         <Text
           style={{
             ...styles.text,
-            fontWeight: message.seen ? "normal" : "bold",
+            fontWeight: seen ? "normal" : "bold",
           }}
         >
           <Text>
-            {message.author}
+            {chat.name}
             {"\n"}
           </Text>
           <Text style={styles.smallText}>

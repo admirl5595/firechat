@@ -85,7 +85,7 @@ export default function Register({ navigation }) {
   };
 
   return (
-    <Layout>
+    <Layout scroll={true}>
       <HeaderAndIcon icon="comments" title="Sign up" iconColor="black" />
       <View style={styles.container}>
         {error.errorType === "fName" ? (

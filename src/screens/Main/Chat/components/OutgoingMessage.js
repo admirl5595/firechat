@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import Thumbnail from "@components/Thumbnail";
 import theme from "@res/theme";
 
-export default function OutgoingMessage({ message, date }) {
+export default function OutgoingMessage({ message }) {
+  const date = message.date;
+
   const yyyy = date.getFullYear();
   const dd = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
   const mm =
@@ -13,7 +14,7 @@ export default function OutgoingMessage({ message, date }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{message}</Text>
+      <Text style={styles.text}>{message.body}</Text>
       <Text style={styles.dateText}>{dateString}</Text>
     </View>
   );

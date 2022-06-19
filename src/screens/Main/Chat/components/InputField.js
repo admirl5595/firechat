@@ -7,7 +7,8 @@ import theme from "@res/theme";
 
 // use onSubmit to
 export default function InputField({ onSubmit }) {
-  const [message, setMessage] = useState("asda");
+  const [body, setBody] = useState("asda");
+  const [photoUrl, setPhotoUrl] = useState("");
 
   return (
     <View style={styles.container}>
@@ -19,8 +20,15 @@ export default function InputField({ onSubmit }) {
           size={35}
         />
       </TouchableOpacity>
-      <StyledTextInput value={message} onChangeText={setMessage} />
-      <IconButton onPress={() => onSubmit(message)} icon="paper-plane" />
+      <StyledTextInput flex={true} value={body} onChangeText={setBody} />
+      <IconButton
+        onPress={() => {
+          // TODO: hide keyboard on submit
+          setBody("");
+          onSubmit({ body: body, photoUrl: photoUrl });
+        }}
+        icon="paper-plane"
+      />
     </View>
   );
 }

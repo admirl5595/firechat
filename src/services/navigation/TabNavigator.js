@@ -6,6 +6,7 @@ import ChatsStack from "./stacks/ChatsStack";
 import FriendsStack from "./stacks/FriendsStack";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import theme from "@res/theme";
+import { View } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -26,10 +27,10 @@ const TabNavigator = () => {
           }
 
           // You can return any component that you like here!
-          return <Icon icon={iconName} color={theme.colors.primary} />;
+          return <Icon icon={iconName} color={"black"} />;
         },
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "white",
+        tabBarActiveTintColor: "black",
+        tabBarInactiveTintColor: "black",
         headerShown: false,
       })}
     >
@@ -41,7 +42,11 @@ const TabNavigator = () => {
 };
 
 function Icon({ icon, color }) {
-  return <FontAwesomeIcon size={25} icon={icon} color={color} />;
+  return (
+    <View style={{ marginTop: "5%" }}>
+      <FontAwesomeIcon size={35} icon={icon} color={color} />
+    </View>
+  );
 }
 
 export default TabNavigator;

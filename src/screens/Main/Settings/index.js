@@ -12,6 +12,7 @@ export default function Settings() {
   return (
     <View>
       <Text>Settings</Text>
+      <Text>Signed in as: {auth.currentUser.email}</Text>
       <PrimaryButton onPress={logout} title="Log out" />
     </View>
   );

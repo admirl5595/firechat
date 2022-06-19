@@ -1,10 +1,25 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { FlatList } from "react-native";
+import React, { useContext } from "react";
+import ChatsContext from "@services/ChatsContext";
+import ChatPreview from "./components/ChatPreview";
+import Layout from "@components/Layout";
 
-export default function Chats() {
+// get chats
+export default function Chats({ navigation }) {
+  const chats = useContext(ChatsContext);
+
   return (
-    <View>
-      <Text>Chats</Text>
-    </View>
+    <Layout>
+      {chats.length > 0
+        ? chats.map((chat) => (
+            <ChatPreview
+              onPress={() => navigation.navigate("Chat", { chatId: chat.id })}
+              key={chat.msgs.slice(-1)[0].date}
+              chat={chat}
+              message={chat.msgs.slice(-1)[0]}
+            />
+          ))
+        : null}
+    </Layout>
   );
 }

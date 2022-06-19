@@ -7,12 +7,14 @@ export default function StyledTextInput({
   onChangeText,
   value,
   placeholder,
+  flex,
 }) {
   return (
     <TextInput
       style={{
         ...styles.container,
         borderColor: error ? theme.colors.failure : "rgba(0,0,0,.3)",
+        flex: flex ? 1 : 0,
       }}
       onChangeText={onChangeText}
       value={value}
