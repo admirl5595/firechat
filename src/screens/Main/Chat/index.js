@@ -8,7 +8,7 @@ import IncomingMessage from "./components/IncomingMessage";
 import OutgoingMessage from "./components/OutgoingMessage";
 
 import { addMessage } from "@services/crud-operations/chats";
-import ChatsContext from "@services/ChatsContext";
+import ChatsContext from "@services/contexts/ChatsContext";
 import { auth } from "@firebase-config";
 
 // TODO: add authorId to new messages
@@ -24,7 +24,6 @@ export default function Chat({ navigation }) {
   const messages = chat.msgs;
 
   const userId = auth.currentUser.uid;
-  console.log("current user id: " + userId);
 
   const [message, setMessage] = useState({
     body: "",
@@ -52,10 +51,10 @@ export default function Chat({ navigation }) {
     <Layout scroll={false}>
       <View style={styles.messagesContainer}>
         <FlatList
+          inverted
+          contentContainerStyle={{ flexDirection: "column-reverse" }}
           data={messages}
           renderItem={({ item }) => {
-            console.log("item:" + item.authorId);
-
             if (item.authorId !== userId) {
               return <IncomingMessage message={item} />;
             } else {

@@ -7,7 +7,25 @@ import { auth } from "@firebase-config";
 
 // message: last message in the chat
 export default function ChatPreview({ message, chat, onPress }) {
-  console.log(message);
+  if (!message) {
+    return (
+      <Card onPress={onPress}>
+        <View style={styles.container}>
+          <Thumbnail />
+          <Text
+            style={{
+              ...styles.text,
+            }}
+          >
+            <Text>
+              {chat.name}
+              {"\n"}
+            </Text>
+          </Text>
+        </View>
+      </Card>
+    );
+  }
 
   const hour =
     message.date.getHours() < 10
@@ -50,9 +68,11 @@ export default function ChatPreview({ message, chat, onPress }) {
             {chat.name}
             {"\n"}
           </Text>
-          <Text style={styles.smallText}>
-            {message.author}: {bodyPreview} • {timeString}
-          </Text>
+          {message ? (
+            <Text style={styles.smallText}>
+              {message.author}: {bodyPreview} • {timeString}
+            </Text>
+          ) : null}
         </Text>
       </View>
     </Card>

@@ -81,14 +81,19 @@ export function setupChatListener(chatIds, setChats, unsub) {
 }
 
 // listen for changes in user document (friend requests and chats)
-export async function setupChatIdsListener(userId, setChats) {
+export async function setupUserDataListener(userId, setChats, setFriends) {
   const unsub = onSnapshot(doc(db, "users", userId), (doc) => {
     const userData = doc.data();
     const chatIds = userData.chats;
 
-    setupChatListener(chatIds, setChats, true);
+    // change friends context
+    setFriends(userData.friends);
 
-    // attach new listener whenever user doc is updated
-    setupChatListener(chatIds, setChats, false);
+    if (chatIds.length > 0) {
+      setupChatListener(chatIds, setChats, true);
+
+      // attach new listener whenever user doc is updated
+      setupChatListener(chatIds, setChats, false);
+    }
   });
 }

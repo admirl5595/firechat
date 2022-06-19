@@ -6,7 +6,7 @@ import StyledTextInput from "./StyledTextInput";
 import IconButton from "./IconButton";
 
 export default function SearchInput({ title, placeholder, onSubmit }) {
-  const [value, setValue] = useState("255");
+  const [value, setValue] = useState("");
 
   return (
     <Card>
@@ -16,6 +16,7 @@ export default function SearchInput({ title, placeholder, onSubmit }) {
           onChangeText={setValue}
           value={value}
           placeholder={placeholder}
+          flex={true}
         />
         <IconButton onPress={() => onSubmit(value)} icon="magnifying-glass" />
       </View>

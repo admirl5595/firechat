@@ -3,15 +3,43 @@ import React from "react";
 import Card from "./Card";
 import Thumbnail from "./Thumbnail";
 import theme from "@res/theme";
+import IconButton from "./IconButton";
 
-export default function UserPreview({ fName, lName }) {
+export default function UserPreview({
+  fName,
+  lName,
+  add,
+  accept,
+  decline,
+  text,
+}) {
   return (
     <Card>
       <View style={styles.container}>
-        <Thumbnail />
-        <Text style={styles.text}>
-          {fName} {lName}
-        </Text>
+        <View style={styles.alias}>
+          <Thumbnail />
+          <Text style={styles.text}>
+            {fName} {lName}
+          </Text>
+        </View>
+        <View style={styles.buttons}>
+          {add ? (
+            <IconButton
+              icon="plus"
+              backgroundColor={theme.colors.success}
+              onPress={add}
+            />
+          ) : null}
+          {accept ? <IconButton icon="check" onPress={accept} /> : null}
+          {decline ? (
+            <IconButton
+              icon="xmark"
+              backgroundColor={theme.colors.failure}
+              onPress={decline}
+            />
+          ) : null}
+          <Text>{text}</Text>
+        </View>
       </View>
     </Card>
   );
@@ -20,10 +48,19 @@ export default function UserPreview({ fName, lName }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
+    justifyContent: "space-between",
   },
   text: {
     alignSelf: "center",
     ...theme.textVariants.body,
     marginLeft: 10,
+  },
+  alias: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  buttons: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });

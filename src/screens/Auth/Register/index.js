@@ -8,7 +8,7 @@ import styles from "./style";
 import ErrorMessage from "@components/ErrorMessage";
 import { db, auth } from "@firebase-config";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 
 import {
   verifyFName,
@@ -52,7 +52,8 @@ export default function Register({ navigation }) {
     }
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then(async () => {
+      .then(async (userCredentials) => {
+        const user = userCredentials.user;
         // add user document to firebase
         const userDoc = {
           fName: fName,
@@ -62,15 +63,12 @@ export default function Register({ navigation }) {
           chats: [],
           incomingFR: [],
           outgoingFR: [],
+          id: user.uid,
         };
 
-        const docRef = await addDoc(collection(db, "users"), userDoc);
-
-        console.log(docRef.id);
+        const docRef = await setDoc(doc(db, "users", user.uid), userDoc);
       })
       .catch((error) => {
-        console.log(error.code);
-
         if (
           error.code.includes("missing-email") ||
           error.code.includes("invalid-email")

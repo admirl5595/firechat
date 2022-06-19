@@ -12,6 +12,10 @@ import {
   faMagnifyingGlass,
   faImages,
   faPaperPlane,
+  faFaceGrinTears,
+  faPlus,
+  faCheck,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function addIcons() {
@@ -26,6 +30,10 @@ export default function addIcons() {
     faGear,
     faMagnifyingGlass,
     faImages,
-    faPaperPlane
+    faPaperPlane,
+    faFaceGrinTears,
+    faPlus,
+    faCheck,
+    faXmark
   );
 }

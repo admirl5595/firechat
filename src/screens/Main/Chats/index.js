@@ -1,6 +1,6 @@
 import { FlatList } from "react-native";
 import React, { useContext } from "react";
-import ChatsContext from "@services/ChatsContext";
+import ChatsContext from "@services/contexts/ChatsContext";
 import ChatPreview from "./components/ChatPreview";
 import Layout from "@components/Layout";
 
@@ -14,9 +14,9 @@ export default function Chats({ navigation }) {
         ? chats.map((chat) => (
             <ChatPreview
               onPress={() => navigation.navigate("Chat", { chatId: chat.id })}
-              key={chat.msgs.slice(-1)[0].date}
+              key={chat.msgs.length > 0 ? chat.msgs.slice(-1)[0].date : null}
               chat={chat}
-              message={chat.msgs.slice(-1)[0]}
+              message={chat.msgs.length > 0 ? chat.msgs.slice(-1)[0] : null}
             />
           ))
         : null}
