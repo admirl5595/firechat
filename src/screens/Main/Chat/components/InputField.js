@@ -23,7 +23,6 @@ export default function InputField({ onSubmit }) {
       <StyledTextInput flex={true} value={body} onChangeText={setBody} />
       <IconButton
         onPress={() => {
-          // TODO: hide keyboard on submit
           setBody("");
           onSubmit({ body: body, photoUrl: photoUrl });
         }}

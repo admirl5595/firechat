@@ -12,7 +12,6 @@ export default function Friends({ navigation }) {
 
   return (
     <Layout>
-      {/* TODO: navigate to user profile page */}
       {friends.length > 0 ? (
         <FlatList
           data={friends}

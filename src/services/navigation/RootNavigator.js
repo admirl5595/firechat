@@ -16,7 +16,6 @@ export default function RootNavigator() {
 
   const Stack = createNativeStackNavigator();
 
-  // TODO: Flytte tannhjulet ut hit
   return (
     <NavigationContainer>
       <StatusBar />

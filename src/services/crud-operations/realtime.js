@@ -1,26 +1,21 @@
-import {
-  query,
-  collection,
-  where,
-  onSnapshot,
-  doc,
-  getDoc,
-} from "firebase/firestore";
+import { query, collection, where, onSnapshot, doc } from "firebase/firestore";
 import { db } from "@firebase-config";
 
-// TODO: trigger notifications when a chat is modified (ie. new message has been detected)
+let unsubChatsRef;
+let unsubUserDataRef;
 
 // listens for changes in a users chat documents (filtered by chatIds parameter)
 // changes trigger context updates
-export function setupChatListener(chatIds, setChats, unsub) {
+export function setupChatListener(chatIds, setChats) {
   if (!chatIds) return;
 
   // query chats which the user is a member of
   const q = query(collection(db, "chats"), where("id", "in", chatIds));
 
-  const unsubscribe = onSnapshot(q, (snapshot) => {
+  unsubChatsRef = onSnapshot(q, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
-      console.log("chats update detected");
+      console.log("////////////////////////");
+      console.log("chats data updated");
       console.log(change.type);
 
       // get document that changed
@@ -72,17 +67,19 @@ export function setupChatListener(chatIds, setChats, unsub) {
       }
     });
   });
-
-  if (unsub) {
-    console.log("unsubbing...");
-    setChats([]);
-    unsubscribe();
-  }
 }
 
 // listen for changes in user document (friend requests and chats)
 export async function setupUserDataListener(userId, setChats, setFriends) {
-  const unsub = onSnapshot(doc(db, "users", userId), (doc) => {
+  console.log("setting up user data listener...");
+  console.log(unsubUserDataRef);
+
+  unsubUserDataRef = onSnapshot(doc(db, "users", userId), (doc) => {
+    console.log("********************");
+    console.log("userdata updated");
+
+    unsubChats();
+
     const userData = doc.data();
     const chatIds = userData.chats;
 
@@ -90,10 +87,21 @@ export async function setupUserDataListener(userId, setChats, setFriends) {
     setFriends(userData.friends);
 
     if (chatIds.length > 0) {
-      setupChatListener(chatIds, setChats, true);
-
-      // attach new listener whenever user doc is updated
-      setupChatListener(chatIds, setChats, false);
+      setupChatListener(chatIds, setChats);
     }
   });
+}
+
+export function unsubUserData() {
+  if (unsubUserDataRef) {
+    console.log(unsubUserDataRef);
+    unsubUserDataRef();
+  }
+}
+
+export function unsubChats() {
+  if (unsubChatsRef) {
+    console.log(unsubChatsRef);
+    unsubChatsRef();
+  }
 }

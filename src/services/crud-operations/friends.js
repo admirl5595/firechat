@@ -20,7 +20,7 @@ export const addFriend = async (uid) => {
 
   // add incomingFR to other user
   res = await updateDoc(otherUserDocRef, {
-    incomingFR: auth.currentUser.uid,
+    incomingFR: arrayUnion(auth.currentUser.uid),
   });
 };
 
@@ -36,7 +36,7 @@ export const acceptFR = async (uid) => {
   // get fName and lName for both users and store in object
   let currentUserFriendData = {
     id: currentUser.uid,
-    fName: "current", // TODO: implement getUserData function
+    fName: "current",
     lName: "user",
   };
 

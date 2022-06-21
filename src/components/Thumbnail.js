@@ -1,7 +1,6 @@
 import { View, Text, Image, StyleSheet } from "react-native";
 import React from "react";
 
-// TODO: pass firebase image with source
 export default function Thumbnail({ source }) {
   return (
     <View>

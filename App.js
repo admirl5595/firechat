@@ -6,7 +6,11 @@ import ChatsContext from "@services/contexts/ChatsContext";
 import FriendsContext from "@services/contexts/FriendsContext";
 
 import RootNavigator from "@services/navigation/RootNavigator";
-import { setupUserDataListener } from "@services/crud-operations/realtime";
+import {
+  setupUserDataListener,
+  unsubUserData,
+  unsubChats,
+} from "@services/crud-operations/realtime";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "@firebase-config";
@@ -23,13 +27,12 @@ export default function App() {
 
   useEffect(() => {
     async function SetupUserDataListener() {
-      // only listen for events if user is signed in
-
       if (user) {
-        // try: add listener for chat ids, detach chats listener when chat ids is modified and reattach
         setupUserDataListener(auth.currentUser.uid, setChats, setFriends);
       } else {
-        // TODO: unsub for changes in chats
+        console.log("unsubbing...");
+        unsubChats();
+        unsubUserData();
       }
     }
     SetupUserDataListener();

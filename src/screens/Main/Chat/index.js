@@ -11,8 +11,6 @@ import { addMessage } from "@services/crud-operations/chats";
 import ChatsContext from "@services/contexts/ChatsContext";
 import { auth } from "@firebase-config";
 
-// TODO: add authorId to new messages
-
 export default function Chat({ navigation }) {
   const route = useRoute();
   const chatId = route.params.chatId;
@@ -31,7 +29,7 @@ export default function Chat({ navigation }) {
     date: null, // use new Date() when posting
     seen: false,
     authorId: userId,
-    author: "", // TODO: implement userContext and use fName + lName here
+    author: "",
   });
 
   const handleSubmit = (messageData) => {
@@ -41,7 +39,7 @@ export default function Chat({ navigation }) {
       date: new Date(), // use new Date() when posting
       seen: false,
       authorId: userId,
-      author: "Admir1<default>", // TODO: implement userContext and use fName + lName here
+      author: "Admir1<default>",
     };
 
     addMessage(chatId, newMessage);

@@ -15,7 +15,7 @@ export async function addChat(user1, user2) {
     id: id,
     members: [user1.id, user2.id],
     msgs: [],
-    name: user1.fName + " and " + user2.fName + "'s chat", // TODO: use other members name as name for given user
+    name: user1.fName + " and " + user2.fName + "'s chat",
   };
 
   let res = await setDoc(doc(db, "chats", id), chatDocument);

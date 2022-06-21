@@ -19,7 +19,6 @@ export default function AddFriend() {
 
   const currentUser = auth.currentUser;
 
-  // TODO: implement proper search functionality
   const findUser = async (fName) => {
     const usersCollectionRef = collection(db, "users");
 
@@ -29,8 +28,6 @@ export default function AddFriend() {
 
     const data = await getDocs(q);
 
-    // TODO: check if users are already friends and incoming and outgoing FR
-    // store as: areFriends: <bool>, requestSent: <bool>, requestRecieved: <bool>
     let usersData = data.docs.map((doc) => ({
       ...doc.data(),
       areFriends: false,
@@ -40,13 +37,19 @@ export default function AddFriend() {
 
     console.log(usersData);
 
+    // prevent own user from showing up
+    usersData = usersData.filter((user) => user.id !== currentUser.uid);
+
     if (usersData.length === 0) {
+      setUsers([]);
       return;
     }
 
     let friendsCopy = [...friends];
 
     const friendIds = friendsCopy.map((friend) => friend.id);
+
+    console.log(friendIds);
 
     usersData = usersData.map((user) => {
       if (friendIds.includes(user.id)) {

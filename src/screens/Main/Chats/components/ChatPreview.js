@@ -54,7 +54,6 @@ export default function ChatPreview({ message, chat, onPress }) {
   }
 
   return (
-    // TODO: fix weird shadow when tapping View with elevation
     <Card onPress={onPress}>
       <View style={styles.container}>
         <Thumbnail />
