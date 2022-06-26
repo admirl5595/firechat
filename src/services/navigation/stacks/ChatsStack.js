@@ -7,6 +7,7 @@ import Chat from "@screens/Main/Chat";
 import mainScreenStyle from "../navigationStyling/mainScreensStyle";
 import stackStyle from "../navigationStyling/stackStyling";
 import Settings from "@screens/Main/Settings/";
+import Profile from "@screens/Main/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,7 @@ const ChatsStack = ({ navigation, route }) => {
       <Stack.Screen options={mainScreenStyle} name="Chats" component={Chats} />
       <Stack.Screen options={stackStyle} name="Chat" component={Chat} />
       <Stack.Screen options={stackStyle} name="Settings" component={Settings} />
+      <Stack.Screen options={stackStyle} name="Profile" component={Profile} />
     </Stack.Navigator>
   );
 };

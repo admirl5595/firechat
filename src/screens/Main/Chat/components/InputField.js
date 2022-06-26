@@ -7,7 +7,7 @@ import theme from "@res/theme";
 
 // use onSubmit to
 export default function InputField({ onSubmit }) {
-  const [body, setBody] = useState("asda");
+  const [body, setBody] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
 
   return (

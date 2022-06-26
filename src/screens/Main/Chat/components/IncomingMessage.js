@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Thumbnail from "@components/Thumbnail";
 
-export default function IncomingMessage({ message }) {
+export default function IncomingMessage({ message, source }) {
   const date = message.date;
   const author = message.author;
 
@@ -20,7 +20,7 @@ export default function IncomingMessage({ message }) {
         <Text style={styles.text}>{message.body}</Text>
         <Text style={styles.dateText}>{dateString}</Text>
       </View>
-      <Thumbnail />
+      <Thumbnail source={source} />
     </View>
   );
 }

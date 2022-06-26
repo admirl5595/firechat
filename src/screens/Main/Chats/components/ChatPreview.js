@@ -56,7 +56,7 @@ export default function ChatPreview({ message, chat, onPress }) {
   return (
     <Card onPress={onPress}>
       <View style={styles.container}>
-        <Thumbnail />
+        <Thumbnail source={chat.image} />
         <Text
           style={{
             ...styles.text,

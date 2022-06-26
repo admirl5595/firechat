@@ -13,7 +13,6 @@ export default function HeaderSmall({ title }) {
 const styles = StyleSheet.create({
   container: {
     marginVertical: 5,
-    padding: 10,
   },
   text: {
     ...theme.textVariants.headerSmall,

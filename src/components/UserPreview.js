@@ -12,12 +12,14 @@ export default function UserPreview({
   accept,
   decline,
   text,
+  onPress,
+  source,
 }) {
   return (
-    <Card>
+    <Card onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.alias}>
-          <Thumbnail />
+          <Thumbnail source={source} />
           <Text style={styles.text}>
             {fName} {lName}
           </Text>
@@ -38,7 +40,7 @@ export default function UserPreview({
               onPress={decline}
             />
           ) : null}
-          <Text>{text}</Text>
+          <Text style={{ ...styles.text, fontWeight: "bold" }}>{text}</Text>
         </View>
       </View>
     </Card>

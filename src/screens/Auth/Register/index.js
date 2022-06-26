@@ -124,6 +124,7 @@ export default function Register({ navigation }) {
           onChangeText={setPassword}
           placeholder="enter password"
           error={error.errorType === "password" ? true : false}
+          secureTextEntry={true}
         />
 
         {error.errorType === "password-confirm" ? (
@@ -134,6 +135,7 @@ export default function Register({ navigation }) {
           onChangeText={setPasswordConfirm}
           placeholder="confirm password"
           error={error.errorType === "password-confirm" ? true : false}
+          secureTextEntry={true}
         />
 
         <View style={styles.btnsContainer}>

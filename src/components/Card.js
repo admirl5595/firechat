@@ -3,6 +3,10 @@ import React from "react";
 import theme from "@res/theme";
 
 export default function Card({ children, onPress }) {
+  if (!onPress) {
+    return <View style={styles.container}>{children}</View>;
+  }
+
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={styles.container}>{children}</View>

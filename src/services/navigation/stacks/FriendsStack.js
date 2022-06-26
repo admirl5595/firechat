@@ -3,10 +3,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Friends from "@screens/Main/Friends";
 import AddFriend from "@screens/Main/AddFriend";
-import FriendRequests from "@screens/Main/FriendRequests";
 import mainScreenStyle from "../navigationStyling/mainScreensStyle";
 import stackStyle from "../navigationStyling/stackStyling";
 import Settings from "@screens/Main/Settings/";
+import Profile from "@screens/Main/Profile";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,12 +23,8 @@ const FriendsStack = () => {
         name="AddFriend"
         component={AddFriend}
       />
-      <Stack.Screen
-        options={stackStyle}
-        name="FriendRequests"
-        component={FriendRequests}
-      />
       <Stack.Screen options={stackStyle} name="Settings" component={Settings} />
+      <Stack.Screen options={stackStyle} name="Profile" component={Profile} />
     </Stack.Navigator>
   );
 };

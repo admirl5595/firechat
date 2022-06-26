@@ -16,6 +16,8 @@ import {
   faPlus,
   faCheck,
   faXmark,
+  faAngleUp,
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function addIcons() {
@@ -34,6 +36,8 @@ export default function addIcons() {
     faFaceGrinTears,
     faPlus,
     faCheck,
-    faXmark
+    faXmark,
+    faAngleUp,
+    faAngleDown
   );
 }

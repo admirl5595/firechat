@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 10,
     alignContent: "space-between",
-    flex: 1,
     backgroundColor: theme.colors.background,
     elevation: 3,
     borderRadius: 10,

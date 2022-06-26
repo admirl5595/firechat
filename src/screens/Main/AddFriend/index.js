@@ -11,6 +11,7 @@ import { db } from "@firebase-config";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { auth } from "@firebase-config";
 import { addFriend, acceptFR } from "@services/crud-operations/friends";
+import { getProfilePicture } from "@services/crud-operations/users";
 
 export default function AddFriend() {
   const [users, setUsers] = useState([]);
@@ -35,8 +36,6 @@ export default function AddFriend() {
       requestRecieved: false,
     }));
 
-    console.log(usersData);
-
     // prevent own user from showing up
     usersData = usersData.filter((user) => user.id !== currentUser.uid);
 
@@ -48,8 +47,6 @@ export default function AddFriend() {
     let friendsCopy = [...friends];
 
     const friendIds = friendsCopy.map((friend) => friend.id);
-
-    console.log(friendIds);
 
     usersData = usersData.map((user) => {
       if (friendIds.includes(user.id)) {
@@ -66,6 +63,11 @@ export default function AddFriend() {
       }
       return user;
     });
+
+    for (let user of usersData) {
+      const profilePicture = await getProfilePicture(user.id);
+      user.profilePicture = profilePicture;
+    }
 
     setUsers(usersData);
   };
@@ -87,6 +89,7 @@ export default function AddFriend() {
                 lName={item.lName}
                 text="Already friends"
                 key={item.id}
+                source={item.profilePicture}
               />
             );
           }
@@ -98,6 +101,7 @@ export default function AddFriend() {
                 lName={item.lName}
                 text="Friend request sent"
                 key={item.id}
+                source={item.profilePicture}
               />
             );
           }
@@ -110,6 +114,7 @@ export default function AddFriend() {
                 accept={() => acceptFR(item.id)}
                 decline={() => {}}
                 key={item.id}
+                source={item.profilePicture}
               />
             );
           }
@@ -120,6 +125,7 @@ export default function AddFriend() {
               lName={item.lName}
               add={() => addFriend(item.id)}
               key={item.id}
+              source={item.profilePicture}
             />
           );
         }}

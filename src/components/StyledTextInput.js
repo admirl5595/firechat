@@ -8,6 +8,7 @@ export default function StyledTextInput({
   value,
   placeholder,
   flex,
+  secureTextEntry,
 }) {
   return (
     <TextInput
@@ -19,6 +20,7 @@ export default function StyledTextInput({
       onChangeText={onChangeText}
       value={value}
       placeholder={placeholder ? placeholder : ""}
+      secureTextEntry={secureTextEntry}
     />
   );
 }

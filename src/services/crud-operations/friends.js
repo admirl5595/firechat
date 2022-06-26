@@ -7,6 +7,8 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "@firebase-config";
 import { addChat } from "./chats";
+import { getUserData } from "./users";
+import { Alert } from "react-native";
 
 export const addFriend = async (uid) => {
   // add outgoingFR to current user
@@ -24,30 +26,58 @@ export const addFriend = async (uid) => {
   });
 };
 
+// uid of other user
+export const declineFR = async (uid) => {
+  const currentUser = auth.currentUser;
+
+  const currentUserDocRef = doc(db, "users", currentUser.uid);
+  const otherUserDocRef = doc(db, "users", uid);
+
+  // remove incomingFR and outgoingFR from both documents (in case of inconsistency)
+  let res = await updateDoc(currentUserDocRef, {
+    incomingFR: arrayRemove(uid),
+  });
+
+  res = updateDoc(otherUserDocRef, {
+    outgoingFR: arrayRemove(currentUser.uid),
+  });
+};
+
 export const acceptFR = async (uid) => {
   const currentUser = auth.currentUser;
 
+  // check if users are already friends
+  let AreFriends = await areFriends(currentUser.uid, uid);
+
+  if (AreFriends) {
+    Alert.alert("already friends");
+    return;
+  }
+
   // get current user document
-  const currentUserDocRef = doc(db, "users", currentUser.uid);
+  const currentUserData = await getUserData(currentUser.uid);
 
   // get other users' user docuement
-  const otherUserDocRef = doc(db, "users", uid);
+  const otherUserData = await getUserData(uid);
 
   // get fName and lName for both users and store in object
   let currentUserFriendData = {
     id: currentUser.uid,
-    fName: "current",
-    lName: "user",
+    fName: currentUserData.fName,
+    lName: currentUserData.lName,
   };
 
   let otherUserFriendData = {
     id: uid,
-    fName: "other",
-    lName: "user",
+    fName: otherUserData.fName,
+    lName: otherUserData.lName,
   };
 
   // create chat and add to chats array for each user
   const chatId = await addChat(currentUserFriendData, otherUserFriendData);
+
+  const currentUserDocRef = doc(db, "users", currentUser.uid);
+  const otherUserDocRef = doc(db, "users", uid);
 
   // remove incomingFR and outgoingFR from both documents (in case of inconsistency)
   let res = await updateDoc(currentUserDocRef, {
@@ -72,9 +102,7 @@ export const areFriends = async (currentUserUid, otherUserUid) => {
   const userData = userDoc.data();
 
   // get list of friend uids
-  const friendIds = userData.friends.map((friend) => friend.uid);
-
-  console.log(friendIds.includes(otherUserUid));
+  const friendIds = userData.friends.map((friend) => friend.id);
 
   // check if uid list includes other user
   return friendIds.includes(otherUserUid);
