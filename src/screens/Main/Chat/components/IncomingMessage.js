@@ -26,7 +26,9 @@ export default function IncomingMessage({ message, source }) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    marginLeft: 5,
+  },
   text: {
     padding: 10,
     borderRadius: 10,
@@ -36,6 +38,7 @@ const styles = StyleSheet.create({
   messageContainer: {
     width: "60%",
     marginLeft: "10%",
+    marginBottom: "-5%",
   },
   dateText: {
     alignSelf: "flex-end",

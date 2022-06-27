@@ -19,7 +19,14 @@ const FriendsStack = () => {
         component={Friends}
       />
       <Stack.Screen
-        options={{ ...stackStyle, title: "Add friend" }}
+        options={{
+          ...stackStyle,
+          title: "Add friend",
+          headerTitleStyle: {
+            fontWeight: "900",
+            fontSize: 25,
+          },
+        }}
         name="AddFriend"
         component={AddFriend}
       />
