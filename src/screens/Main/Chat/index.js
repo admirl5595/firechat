@@ -24,6 +24,8 @@ export default function Chat({ navigation }) {
 
   const chat = chats.filter((chat) => chat.id === chatId)[0];
 
+  navigation.setOptions({ title: chat.name });
+
   const messages = chat.msgs;
 
   const userId = auth.currentUser.uid;

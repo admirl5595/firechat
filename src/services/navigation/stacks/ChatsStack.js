@@ -27,7 +27,17 @@ const ChatsStack = ({ navigation, route }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen options={mainScreenStyle} name="Chats" component={Chats} />
-      <Stack.Screen options={stackStyle} name="Chat" component={Chat} />
+      <Stack.Screen
+        options={{
+          ...stackStyle,
+          headerTitleStyle: {
+            fontWeight: "900",
+            fontSize: 25,
+          },
+        }}
+        name="Chat"
+        component={Chat}
+      />
       <Stack.Screen options={stackStyle} name="Settings" component={Settings} />
       <Stack.Screen options={stackStyle} name="Profile" component={Profile} />
     </Stack.Navigator>
