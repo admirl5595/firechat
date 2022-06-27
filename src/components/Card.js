@@ -8,15 +8,15 @@ export default function Card({ children, onPress }) {
   }
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.container}>{children}</View>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <View>{children}</View>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    elevation: 5,
+    elevation: 3,
     backgroundColor: theme.colors.background,
     padding: 10,
     margin: 10,
