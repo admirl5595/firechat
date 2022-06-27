@@ -39,10 +39,16 @@ export default function ChatPreview({ message, chat, onPress }) {
 
   const timeString = hour + ":" + minute;
 
-  let bodyPreview = message.body;
+  let bodyPreview;
 
-  if (bodyPreview.length > 10) {
-    bodyPreview = bodyPreview.slice(0, 10) + "...";
+  if (!message.body) {
+    bodyPreview = "sent an image";
+  } else {
+    bodyPreview = message.body;
+
+    if (bodyPreview.length > 10) {
+      bodyPreview = bodyPreview.slice(0, 10) + "...";
+    }
   }
 
   const userId = auth.currentUser.uid;

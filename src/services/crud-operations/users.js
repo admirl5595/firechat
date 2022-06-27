@@ -40,6 +40,28 @@ export async function getProfilePicture(uid) {
   return base64String;
 }
 
+export async function getChatImage(chatId, imageId) {
+  let path = "chat-data/" + chatId + "/images/" + imageId;
+
+  let storageRef = ref(storage, path);
+
+  let bytes;
+
+  try {
+    bytes = await getBytes(storageRef);
+    // check for error when fetching image
+  } catch (err) {
+    console.log(err.code);
+    return null;
+  }
+
+  let base64String = _arrayBufferToBase64(bytes);
+
+  base64String = "data:image/jpeg;base64," + base64String;
+
+  return base64String;
+}
+
 const _arrayBufferToBase64 = (buffer) => {
   let binary = "";
   let bytes = new Uint8Array(buffer);

@@ -15,6 +15,11 @@ import UserDataContext from "@services/contexts/UserDataContext";
 import { auth } from "@firebase-config";
 import { getProfilePicture } from "@services/crud-operations/users";
 
+import uuid from "react-native-uuid";
+
+import { ref, uploadBytes } from "firebase/storage";
+import { storage } from "@firebase-config";
+
 export default function Chat({ navigation }) {
   const route = useRoute();
   const chatId = route.params.chatId;
@@ -54,15 +59,37 @@ export default function Chat({ navigation }) {
     GetProfilePictures();
   }, []);
 
-  const handleSubmit = (messageData) => {
+  const handleSubmit = async ({ body, imageUri }) => {
+    if (!body && !imageUri) {
+      console.log("nothing to send");
+      return;
+    }
+
+    // upload image to storage
+
+    let imageId;
+
+    if (imageUri) {
+      let path = "chat-data/" + chatId + "/images/";
+      imageId = uuid.v4();
+
+      let storageRef = ref(storage, path + imageId);
+
+      const img = await fetch(imageUri);
+      const bytes = await img.blob();
+
+      await uploadBytes(storageRef, bytes);
+    }
+
     const newMessage = {
-      body: messageData.body,
-      image: messageData.photoUrl,
+      ...(body && { body: body }),
       date: new Date(),
-      seen: false,
       authorId: userId,
       author: userData.fName,
+      ...(imageId && { imageId: imageId }),
     };
+
+    console.log(newMessage);
 
     addMessage(chatId, newMessage);
   };
@@ -80,9 +107,15 @@ export default function Chat({ navigation }) {
             let profilePicture = profilePicturesMap[authorId];
 
             if (item.authorId !== userId) {
-              return <IncomingMessage message={item} source={profilePicture} />;
+              return (
+                <IncomingMessage
+                  message={item}
+                  chatId={chatId}
+                  source={profilePicture}
+                />
+              );
             } else {
-              return <OutgoingMessage message={item} />;
+              return <OutgoingMessage chatId={chatId} message={item} />;
             }
           }}
         />

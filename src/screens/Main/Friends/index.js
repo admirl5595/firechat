@@ -25,8 +25,6 @@ export default function Friends({ navigation }) {
 
       let friendIds = friends.map((friend) => friend.id);
 
-      console.log(friendIds);
-
       for (const id of friendIds) {
         let user = await getUserData(id);
         let profilePicture = await getProfilePicture(id);
