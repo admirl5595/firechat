@@ -34,6 +34,7 @@ export default function App() {
   // context state
   // setChats is only called in listener function
   const [chats, setChats] = useState([]);
+  const [loadingChats, setLoadingChats] = useState(false);
   const [friends, setFriends] = useState([]);
   const [user, loading] = useAuthState(auth);
   const [userData, setUserData] = useState({});
@@ -47,10 +48,16 @@ export default function App() {
           setChats,
           setFriends,
           setUserData,
-          setFriendRequests
+          setFriendRequests,
+          setLoadingChats
         );
       } else {
         console.log("unsubbing...");
+        setChats([]);
+        setLoadingChats(true);
+        setFriendRequests([]);
+        setFriends([]);
+        setUserData({});
         unsubChats();
         unsubUserData();
       }
@@ -62,7 +69,7 @@ export default function App() {
     <FriendRequestsContext.Provider value={friendRequests}>
       <UserDataContext.Provider value={{ userData, setUserData }}>
         <FriendsContext.Provider value={friends}>
-          <ChatsContext.Provider value={{ chats, setChats }}>
+          <ChatsContext.Provider value={{ chats, setChats, loadingChats }}>
             <RootNavigator />
           </ChatsContext.Provider>
         </FriendsContext.Provider>

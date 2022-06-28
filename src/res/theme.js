@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 const colorPalette = {
   primary: "#31AFD4",
   secondary: "#1F487E",
+  trinary: "#FF715B",
   background: "#fff",
   success: "green",
   failure: "red",

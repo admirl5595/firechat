@@ -2,6 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Friends from "@screens/Main/Friends";
+import FriendRequests from "@screens/FriendRequests";
 import AddFriend from "@screens/Main/AddFriend";
 import mainScreenStyle from "../navigationStyling/mainScreensStyle";
 import stackStyle from "../navigationStyling/stackStyling";
@@ -29,6 +30,18 @@ const FriendsStack = () => {
         }}
         name="AddFriend"
         component={AddFriend}
+      />
+      <Stack.Screen
+        options={{
+          ...stackStyle,
+          title: "Friend requests",
+          headerTitleStyle: {
+            fontWeight: "900",
+            fontSize: 25,
+          },
+        }}
+        name="FriendRequests"
+        component={FriendRequests}
       />
       <Stack.Screen options={stackStyle} name="Settings" component={Settings} />
       <Stack.Screen options={stackStyle} name="Profile" component={Profile} />

@@ -9,7 +9,11 @@ let unsubUserDataRef;
 
 // listens for changes in a users chat documents (filtered by chatIds parameter)
 // changes trigger context updates
-export function setupChatListener(chatIds, setChats) {
+export function setupChatListener(chatIds, setChats, setLoadingChats) {
+  console.log("setting up chat listener...");
+  console.log("initial chatids:");
+  console.log(chatIds);
+
   // query chats which the user is a member of
   const q = query(collection(db, "chats"), where("id", "in", chatIds));
 
@@ -51,6 +55,8 @@ export function setupChatListener(chatIds, setChats) {
         })),
       };
 
+      setLoadingChats(false);
+
       // add chat to context
       if (change.type === "added") {
         setChats((prevChats) => [
@@ -91,8 +97,11 @@ export async function setupUserDataListener(
   setChats,
   setFriends,
   setUserData,
-  setFriendRequests
+  setFriendRequests,
+  setLoadingChats
 ) {
+  console.log("setting up user data listener...");
+
   unsubUserDataRef = onSnapshot(doc(db, "users", userId), async (doc) => {
     const userData = doc.data();
     const chatIds = userData.chats;
@@ -100,8 +109,11 @@ export async function setupUserDataListener(
     // TODO: use user context to see if chats was changed
     unsubChats();
 
+    setLoadingChats(false);
+
     if (chatIds.length > 0) {
-      setupChatListener(chatIds, setChats);
+      setLoadingChats(true);
+      setupChatListener(chatIds, setChats, setLoadingChats);
     }
 
     const profilePicture = await getProfilePicture(userId);

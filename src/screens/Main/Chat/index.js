@@ -54,14 +54,11 @@ export default function Chat({ navigation }) {
       setProfilePicturesMap(map);
     }
 
-    console.log("effect...");
-
     GetProfilePictures();
   }, []);
 
   const handleSubmit = async ({ body, imageUri }) => {
     if (!body && !imageUri) {
-      console.log("nothing to send");
       return;
     }
 
@@ -88,8 +85,6 @@ export default function Chat({ navigation }) {
       author: userData.fName,
       ...(imageId && { imageId: imageId }),
     };
-
-    console.log(newMessage);
 
     addMessage(chatId, newMessage);
   };
