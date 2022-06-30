@@ -15,7 +15,6 @@ import styles from "./style";
 
 export default function FriendRequests() {
   const [users, setUsers] = useState([]);
-  const [showFR, setShowFR] = useState(false);
   const friendRequests = useContext(FriendRequestsContext);
 
   // TODO: if friendRequests, add loading indicator
@@ -38,18 +37,9 @@ export default function FriendRequests() {
     <Layout>
       <View style={styles.container}>
         <Card>
-          <View style={styles.dropDown}>
-            <HeaderSmall title={"Friend requests: " + friendRequests.length} />
-            <IconButton
-              icon={
-                showFR && friendRequests.length > 0 ? "angle-up" : "angle-down"
-              }
-              onPress={() => {
-                friendRequests.length > 0 ? setShowFR(!showFR) : null;
-              }}
-            />
-          </View>
-          {friendRequests.length > 0 && showFR ? (
+          <HeaderSmall title={"Friend requests: " + friendRequests.length} />
+
+          {friendRequests.length > 0 ? (
             <FlatList
               data={users}
               renderItem={({ item }) => (
