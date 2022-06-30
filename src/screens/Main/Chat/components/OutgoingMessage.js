@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: theme.colors.primary,
     color: "#fff",
+    fontSize: 16,
   },
   container: {
     width: "60%",

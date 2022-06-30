@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.3)",
+    fontSize: 16,
   },
   messageContainer: {
     width: "60%",
