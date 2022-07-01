@@ -5,6 +5,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Chats from "@screens/Main/Chats";
 import Chat from "@screens/Main/Chat";
 import ChatInfo from "@screens/Main/Chat/ChatInfo";
+import AddGroupChat from "@screens/Main/AddGroupChat";
 import mainScreenStyle from "../navigationStyling/mainScreensStyle";
 import stackStyle from "../navigationStyling/stackStyling";
 import Settings from "@screens/Main/Settings/";
@@ -31,8 +32,9 @@ const ChatsStack = ({ navigation, route }) => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        options={{
-          ...mainScreenStyle,
+        options={({ navigation }) => ({
+          ...mainScreenStyle(navigation),
+
           headerRight: () => (
             <View style={{ flexDirection: "row" }}>
               <IconButton
@@ -51,20 +53,24 @@ const ChatsStack = ({ navigation, route }) => {
               />
             </View>
           ),
-        }}
+        })}
         name="Chats"
         component={Chats}
       />
       <Stack.Screen
         options={{
           ...stackStyle,
-          headerTitleStyle: {
-            fontWeight: "900",
-            fontSize: 25,
-          },
         }}
         name="Chat"
         component={Chat}
+      />
+      <Stack.Screen
+        options={{
+          ...stackStyle,
+          headerTitle: "Group Chat",
+        }}
+        name="AddGroupChat"
+        component={AddGroupChat}
       />
 
       <Stack.Screen options={stackStyle} name="ChatInfo" component={ChatInfo} />
