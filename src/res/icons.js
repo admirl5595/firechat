@@ -18,6 +18,8 @@ import {
   faXmark,
   faAngleUp,
   faAngleDown,
+  faCircleInfo,
+  faCirclePlus,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function addIcons() {
@@ -38,6 +40,8 @@ export default function addIcons() {
     faCheck,
     faXmark,
     faAngleUp,
-    faAngleDown
+    faAngleDown,
+    faCircleInfo,
+    faCirclePlus
   );
 }

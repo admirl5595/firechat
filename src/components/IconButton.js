@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React from "react";
 import theme from "@res/theme";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { back } from "react-native/Libraries/Animated/Easing";
 
 export default function IconButton({
   icon,
@@ -11,20 +10,29 @@ export default function IconButton({
   round,
   style,
   size,
+  color,
+  noBackground,
 }) {
+  let _backgroundColor = {
+    backgroundColor: backgroundColor ? backgroundColor : theme.colors.primary,
+  };
+
   return (
     <TouchableOpacity
       style={{
         ...styles.container,
-        backgroundColor: backgroundColor
-          ? backgroundColor
-          : theme.colors.primary,
+        ...(!noBackground && _backgroundColor),
+        ...(noBackground && { elevation: 0 }),
         borderRadius: round ? 50 : 10,
         ...style,
       }}
       onPress={onPress}
     >
-      <FontAwesomeIcon icon={icon} size={size ? size : 30} color="white" />
+      <FontAwesomeIcon
+        icon={icon}
+        size={size ? size : 30}
+        color={color ? color : "white"}
+      />
     </TouchableOpacity>
   );
 }

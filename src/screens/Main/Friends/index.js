@@ -70,33 +70,33 @@ export default function Friends({ navigation }) {
           onPress={() => navigation.navigate("FriendRequests")}
         />
       </View>
-      <Card flex={true}>
-        {friends.length > 0 ? (
-          <>
+      {friends.length > 0 ? (
+        <>
+          <View style={{ margin: 10 }}>
             <HeaderSmall title={"Friends: " + friends.length} />
-            {loading && <ActivityIndicator size="small" />}
-            <FlatList
-              data={userData}
-              renderItem={({ item }) => (
-                <UserPreview
-                  fName={item.fName}
-                  lName={item.lName}
-                  onPress={() =>
-                    navigation.navigate("Profile", { userData: item })
-                  }
-                  source={item.profilePicture}
-                />
-              )}
-            />
-          </>
-        ) : !loading ? (
-          <HeaderAndIcon
-            title="You have no friends!"
-            icon="face-grin-tears"
-            iconColor="black"
+          </View>
+          {loading && <ActivityIndicator size="small" />}
+          <FlatList
+            data={userData}
+            renderItem={({ item }) => (
+              <UserPreview
+                fName={item.fName}
+                lName={item.lName}
+                onPress={() =>
+                  navigation.navigate("Profile", { userData: item })
+                }
+                source={item.profilePicture}
+              />
+            )}
           />
-        ) : null}
-      </Card>
+        </>
+      ) : !loading ? (
+        <HeaderAndIcon
+          title="You have no friends!"
+          icon="face-grin-tears"
+          iconColor="black"
+        />
+      ) : null}
       <View style={{ justifyContent: "center", alignItems: "center" }}></View>
     </Layout>
   );

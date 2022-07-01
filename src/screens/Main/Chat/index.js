@@ -1,11 +1,14 @@
-import { View, FlatList } from "react-native";
+import { View, FlatList, Text } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import InputField from "./components/InputField";
 import Layout from "@components/Layout";
+import IconButton from "@components/IconButton";
+import Loading from "@components/Loading";
 import styles from "./style";
 import { useRoute } from "@react-navigation/native";
 import IncomingMessage from "./components/IncomingMessage";
 import OutgoingMessage from "./components/OutgoingMessage";
+import theme from "@res/theme";
 
 import { addMessage } from "@services/crud-operations/chats";
 
@@ -35,7 +38,7 @@ export default function Chat({ navigation }) {
 
   const userId = auth.currentUser.uid;
 
-  const [profilePicturesMap, setProfilePicturesMap] = useState({});
+  const [profilePicturesMap, setProfilePicturesMap] = useState(null);
 
   useEffect(() => {
     async function GetProfilePictures() {
@@ -89,33 +92,54 @@ export default function Chat({ navigation }) {
     addMessage(chatId, newMessage);
   };
 
-  return (
-    <Layout scroll={false}>
-      <View style={styles.messagesContainer}>
-        <FlatList
-          inverted
-          contentContainerStyle={{ flexDirection: "column-reverse" }}
-          data={messages}
-          renderItem={({ item }) => {
-            let authorId = item.authorId;
-
-            let profilePicture = profilePicturesMap[authorId];
-
-            if (item.authorId !== userId) {
-              return (
-                <IncomingMessage
-                  message={item}
-                  chatId={chatId}
-                  source={profilePicture}
-                />
-              );
-            } else {
-              return <OutgoingMessage chatId={chatId} message={item} />;
-            }
-          }}
+  if (!profilePicturesMap) {
+    return <Loading title="Loading..." />;
+  } else {
+    // add info button to header
+    navigation.setOptions({
+      headerRight: () => (
+        <IconButton
+          icon="circle-info"
+          round
+          noBackground
+          color={theme.colors.primary}
+          onPress={() =>
+            navigation.navigate("ChatInfo", {
+              chat: { ...chat, profilePicturesMap: profilePicturesMap },
+            })
+          }
         />
-        <InputField onSubmit={(messageData) => handleSubmit(messageData)} />
-      </View>
-    </Layout>
-  );
+      ),
+    });
+
+    return (
+      <Layout scroll={false}>
+        <View style={styles.messagesContainer}>
+          <FlatList
+            inverted
+            contentContainerStyle={{ flexDirection: "column-reverse" }}
+            data={messages}
+            renderItem={({ item }) => {
+              let authorId = item.authorId;
+
+              let profilePicture = profilePicturesMap[authorId];
+
+              if (item.authorId !== userId) {
+                return (
+                  <IncomingMessage
+                    message={item}
+                    chatId={chatId}
+                    source={profilePicture}
+                  />
+                );
+              } else {
+                return <OutgoingMessage chatId={chatId} message={item} />;
+              }
+            }}
+          />
+          <InputField onSubmit={(messageData) => handleSubmit(messageData)} />
+        </View>
+      </Layout>
+    );
+  }
 }
