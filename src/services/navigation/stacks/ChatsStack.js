@@ -67,7 +67,7 @@ const ChatsStack = ({ navigation, route }) => {
       <Stack.Screen
         options={{
           ...stackStyle,
-          headerTitle: "Group Chat",
+          headerTitle: "New Group",
         }}
         name="AddGroupChat"
         component={AddGroupChat}

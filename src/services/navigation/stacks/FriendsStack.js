@@ -33,7 +33,7 @@ const FriendsStack = () => {
       <Stack.Screen
         options={{
           ...stackStyle,
-          title: "Friend requests",
+          title: "Friend Requests",
           headerTitleStyle: {
             fontWeight: "900",
             fontSize: 25,

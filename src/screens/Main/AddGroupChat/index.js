@@ -120,7 +120,7 @@ export default function AddGroupChat({ navigation }) {
         )}
       />
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <PrimaryButton title="Add group chat" onPress={addGroupChat} />
+        <PrimaryButton title="Make group chat" onPress={addGroupChat} />
       </View>
     </Layout>
   );
