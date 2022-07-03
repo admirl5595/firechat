@@ -9,6 +9,7 @@ import UserPreview from "@components/UserPreview";
 import AddedUserPreview from "./components/AddedUserPreview";
 import PrimaryButton from "@components/PrimaryButton";
 
+import { addGroupChat } from "@services/crud-operations/chats";
 import { db, auth } from "@firebase-config";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { getProfilePicture } from "@services/crud-operations/users";
@@ -52,14 +53,21 @@ export default function AddGroupChat({ navigation }) {
     setUsers(usersData);
   };
 
-  const addGroupChat = () => {
+  const _addGroupChat = async () => {
     if (addedUsers.length < 1) {
       Alert.alert("Group chat must contain at least one other member");
       return;
     }
 
-    console.log("len: " + addedUsers.length);
+    console.log("////");
+
+    const members = [...addedUserIds, currentUser.uid];
     console.log(name);
+    console.log(members);
+
+    let chatId = await addGroupChat(name, members);
+
+    // navigation.navigate("Chat", { chatId: chatId });
   };
 
   return (
@@ -120,7 +128,7 @@ export default function AddGroupChat({ navigation }) {
         )}
       />
       <View style={{ justifyContent: "center", alignItems: "center" }}>
-        <PrimaryButton title="Make group chat" onPress={addGroupChat} />
+        <PrimaryButton title="Make group chat" onPress={_addGroupChat} />
       </View>
     </Layout>
   );
