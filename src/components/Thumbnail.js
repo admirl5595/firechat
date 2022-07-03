@@ -4,6 +4,7 @@ import React from "react";
 export default function Thumbnail({ source, size, onPress }) {
   let scale = 1;
   if (size === "large") scale = 2.5;
+  if (size === "medium") scale = 1.4;
 
   const styles = StyleSheet.create({
     container: {
