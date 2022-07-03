@@ -1,8 +1,7 @@
-import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Friends from "@screens/Main/Friends";
-import FriendRequests from "@screens/FriendRequests";
+import FriendRequests from "@screens/Main/FriendRequests";
 import AddFriend from "@screens/Main/AddFriend";
 import mainScreenStyle from "../navigationStyling/mainScreensStyle";
 import stackStyle from "../navigationStyling/stackStyling";

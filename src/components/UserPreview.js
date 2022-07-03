@@ -14,6 +14,7 @@ export default function UserPreview({
   text,
   onPress,
   source,
+  children,
 }) {
   return (
     <Card onPress={onPress}>
@@ -41,6 +42,7 @@ export default function UserPreview({
             />
           ) : null}
           <Text style={{ ...styles.text, fontWeight: "bold" }}>{text}</Text>
+          {children}
         </View>
       </View>
     </Card>
